@@ -1,0 +1,47 @@
+<html>
+	<head>
+	<style>
+	    body {
+	        min-width: 480px;
+	        overflow-x: hidden;
+	        font-family: Arial, sans-serif;
+	        font-size: 12px;
+	    }
+	    input, textarea {
+	        width: 300px;
+	    }
+	    input#save {
+	        font-weight: bold; width: auto;
+	    }
+	</style>
+  <script src="popup.js"></script>
+	</head>
+	<body>
+		<h1>Click save to store current opening tabs</h1>
+		<form id="form">
+			<p>
+				<!-- <div class="dropdown">
+	  			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Saved Settings
+				  <span class="caret"></span></button>
+				  <ul class="dropdown-menu">
+			  	</ul>
+				</div> -->
+				<p>
+					<label for="title">Saved groups of tabs</label><br/>
+					<select id="dropdown" name="dropdown"></select>
+					<button id = "open" type="button">Open</button>
+			  </p>
+				<p>
+					<label for="title">Give this list of tabs a name</label><br/>
+					<input type="text" id="name" name="name" size="40" value="" />
+					<button id = "save" type="button">Save</button>
+				</p>
+				<p>
+					<label for="title">Snooze current tab for later</label><br/>
+					<button id = "snooze" name="snooze"type="button">Snooze</button>
+				</p>
+
+      </p>
+		</form>
+	</body>
+</html>
