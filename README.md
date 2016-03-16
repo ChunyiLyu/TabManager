@@ -1,4 +1,4 @@
-# Conference Project -- Chunyi Lyu
+# Tab Manager
 
 ## Installation
 - Unzip
