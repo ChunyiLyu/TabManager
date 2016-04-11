@@ -1,47 +1,120 @@
+<!DOCTYPE html>
 <html>
-	<head>
-	<style>
-	    body {
-	        min-width: 480px;
-	        overflow-x: hidden;
-	        font-family: Arial, sans-serif;
-	        font-size: 12px;
-	    }
-	    input, textarea {
-	        width: 300px;
-	    }
-	    input#save {
-	        font-weight: bold; width: auto;
-	    }
-	</style>
-  <script src="popup.js"></script>
-	</head>
-	<body>
-		<h1>Click save to store current opening tabs</h1>
-		<form id="form">
-			<p>
-				<!-- <div class="dropdown">
-	  			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Saved Settings
-				  <span class="caret"></span></button>
-				  <ul class="dropdown-menu">
-			  	</ul>
-				</div> -->
-				<p>
-					<label for="title">Saved groups of tabs</label><br/>
-					<select id="dropdown" name="dropdown"></select>
-					<button id = "open" type="button">Open</button>
-			  </p>
-				<p>
-					<label for="title">Give this list of tabs a name</label><br/>
-					<input type="text" id="name" name="name" size="40" value="" />
-					<button id = "save" type="button">Save</button>
-				</p>
-				<p>
-					<label for="title">Snooze current tab for later</label><br/>
-					<button id = "snooze" name="snooze"type="button">Snooze</button>
-				</p>
+    <head>
+        <style>
+	    button,
+			body {
+		min-width: 370px;
+		max-width: 370px;
+		min-height: 350px;
+		overflow-x: hidden;
+		font-family: Arial, sans-serif;
+		font-size: 15px;
+}
 
-      </p>
-		</form>
-	</body>
+#saveTab {
+	width: 15%;
+	float: left;
+	margin: 1em 20% 0 0;
+  color: #483D8B;
+}
+
+#openTab {
+	width: 15%;
+	float: left;
+	margin: 1em 20% 0 0;
+  color: #483D8B;
+}
+
+#openLinks {
+  width: 35%;
+  float: left;
+  margin: auto;
+  color: #483D8B;
+}
+
+#dropdown {
+	float: left;
+	width: 45%;
+  color: #483D8B;
+}
+
+input,
+textarea {
+	width: 350px;
+}
+
+#snoozeController {
+	font-size: 120%;
+	font-weight: medium;
+	text-align: center;
+	background-color: #FFC0CB;
+	border: 1px solid #E6E6FA;
+	color: #483D8B;
+	border-radius: 0.25em;
+	padding: 0.5em;
+	margin-top: -1%;
+}
+
+#open {
+	padding: 0.25em;
+	background-color: #FFC0CB;
+  color: #483D8B;
+	border-radius: 0.5em;
+}
+
+#open div {
+	padding: 0.25em;
+	display: block;
+	width: 80%;
+	margin: -1.25em 0 0 20%;
+	word-wrap: break-word;
+}
+
+.u {
+	border-bottom: 5px solid #fff;
+}
+
+#save {
+	padding: 0.25em;
+	background-color: #FFC0CB;
+  color: #483D8B;
+	border-radius: 0.5em;
+}
+
+#save div {
+	display: block;
+	width: 80%;
+	margin: -1.25em 0 0 20%;
+	word-wrap: break-word;
+}
+
+.u {
+	border-bottom: 1px solid #fff;
+}
+
+</style>
+<script src="popup.js"></script>
+<script src="jquery-2.1.4.min.js"></script>
+</head>
+<body>
+	<h3>Tab Manager   <button id="options">Configure options...</button>
+	<hr><div style="width:100%"></hr>
+	<p class="snooze">Snooze currnet tab for reopening</p>
+	<p id="snoozeController"></p>
+	<div id="open">
+		<label for="title">Select saved tabs</label><br/>
+		<select id="dropdown" name="dropdown"></select><br/>
+		<button id = "openTab" type="button">Open</button><br/>
+	</div>
+	<div id="save">
+		<label for="title">Give this list of tabs a name</label><br/>
+		<input type="text" id="name" name="name" size="40" value="" /><br/>
+		<button id = "saveTab" type="button">Save</button><br/>
+	</div>
+  <div id="links">
+		<input type="text" id="keyword" name="keyword" size="40" value="" /><br/>
+		<button id = "openLinks" type="button">OpenLinks</button><br/>
+	</div>
+</body>
 </html>

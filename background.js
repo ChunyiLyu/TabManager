@@ -16,8 +16,6 @@ function checkSnooze () {
   console.log(time["time"]);
 }
 
-setInterval(function() {checkSnooze;},  50);
-
 function saveStatus(status) {
   var key = status["domain"];
   localStorage[key] = JSON.stringify(status);
@@ -30,9 +28,24 @@ chrome.runtime.onMessage.addListener(
       chrome.extension.getBackgroundPage().console.log('received saveTabs signal');
       localStorage[request.key] = request.urls;
       console.log(localStorage[request.key]);
+
     } else if (request.signal == "saveUrl") {
       console.log("saveUrl");
       localStorage[request.key] = JSON.stringify(request.value);
+			chrome.alarms.onAlarm.addListener(function (alarm) {
+			    console.log('Fired alarm!');
+			    DoSomething();
+					console.log(alarm.scheduledTime);
+					clearAlarm(alarm);
+			});
+			function DoSomething() {
+			  chrome.tabs.create({ url: request.value["url"] });
+			}
+			function clearAlarm(alarm) {
+				console.log(alarm.name);
+				chrome.alarms.clear(alarm.name, function(){});
+			}
+
     } else if (request.signal == "openTab") {
       console.log("openTab");
       chrome.tabs.create({ url: request.url });
