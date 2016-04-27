@@ -2,95 +2,94 @@
 <html>
     <head>
         <style>
-	    button,
+	    /*button,*/
 			body {
-		min-width: 370px;
-		max-width: 370px;
+		min-width: 300px;
+    max-width: 350px;
 		min-height: 350px;
+    max-height: 350px;
 		overflow-x: hidden;
-		font-family: Arial, sans-serif;
-		font-size: 15px;
+		font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+		font-size: 12px;
+    margin: 5px;
+    background-image: url("small.png");
+    background-size: 50%, 25%, 25%;
 }
 
-#saveTab {
-	width: 15%;
-	float: left;
-	margin: 1em 20% 0 0;
+.button {
+  background-color: white;
+  border: 1px solid #E6E6FA;
+  color: white;
+  padding: 2px 7px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 2px 2px;
+  border-radius: 12px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button0 {
+    background-color: white;
+    color: black;
+}
+
+.button0:hover {
+    background-color: #F08080; /*light coral*/
+    color: white;
+}
+
+/*#saveTab {
   color: #483D8B;
+  font-size: 12px;
+  width: 50px;
 }
 
 #openTab {
-	width: 15%;
-	float: left;
-	margin: 1em 20% 0 0;
   color: #483D8B;
+  font-size: 12px;
+  width: 50px;
 }
 
 #openLinks {
-  width: 35%;
-  float: left;
-  margin: auto;
   color: #483D8B;
-}
+  font-size: 12px;
+  width: 100px;
+}*/
 
 #dropdown {
-	float: left;
-	width: 45%;
   color: #483D8B;
+  font-size: 12px;
+  width: 100px;
 }
 
 input,
 textarea {
-	width: 350px;
+	width: 270px;
 }
 
 #snoozeController {
 	font-size: 120%;
 	font-weight: medium;
 	text-align: center;
-	background-color: #FFC0CB;
+	background-color: #FFDDE2; /*lighter pink*/
 	border: 1px solid #E6E6FA;
 	color: #483D8B;
-	border-radius: 0.25em;
-	padding: 0.5em;
+	border-radius: 10px;
+	padding: 13px;
 	margin-top: -1%;
 }
 
-#open {
-	padding: 0.25em;
-	background-color: #FFC0CB;
+div.block {
+	padding: 5px;
+	background-color: #FFDDE2; /*lighter pink*/
   color: #483D8B;
-	border-radius: 0.5em;
-}
-
-#open div {
-	padding: 0.25em;
-	display: block;
-	width: 80%;
-	margin: -1.25em 0 0 20%;
-	word-wrap: break-word;
-}
-
-.u {
-	border-bottom: 5px solid #fff;
-}
-
-#save {
-	padding: 0.25em;
-	background-color: #FFC0CB;
-  color: #483D8B;
-	border-radius: 0.5em;
-}
-
-#save div {
-	display: block;
-	width: 80%;
-	margin: -1.25em 0 0 20%;
-	word-wrap: break-word;
-}
-
-.u {
-	border-bottom: 1px solid #fff;
+	border-radius: 10px;
+  margin: 7px 2px 7px 2px;
+  border: 1px solid #E6E6FA;
 }
 
 </style>
@@ -98,23 +97,25 @@ textarea {
 <script src="jquery-2.1.4.min.js"></script>
 </head>
 <body>
-	<h3>Tab Manager   <button id="options">Configure options...</button>
+	<h3><font color="#CD5C5C">Tab Manager   </font><button class="button button0" id="options">Configure options...</button>
 	<hr><div style="width:100%"></hr>
-	<p class="snooze">Snooze currnet tab for reopening</p>
+	<p class="snooze"><font color="#CD5C5C">Snooze Currnet Tab for Reopening</font></p>
 	<p id="snoozeController"></p>
-	<div id="open">
-		<label for="title">Select saved tabs</label><br/>
+
+	<div class="block">
+		<label for="title"><font color="#CD5C5C">Select Saved Tabs</font></label><br/>
 		<select id="dropdown" name="dropdown"></select><br/>
-		<button id = "openTab" type="button">Open</button><br/>
+		<button class="button button0" id = "openTab" type="button">Open</button><br/>
 	</div>
-	<div id="save">
-		<label for="title">Give this list of tabs a name</label><br/>
+	<div class="block">
+		<label for="title"><font color="#CD5C5C">Give This List of Tabs a Name</font></label><br/>
 		<input type="text" id="name" name="name" size="40" value="" /><br/>
-		<button id = "saveTab" type="button">Save</button><br/>
+		<button class="button button0" id = "saveTab" type="button">Save</button><br/>
 	</div>
-  <div id="links">
+  <div class="block">
+    <label for="title"><font color="#CD5C5C">Search Links with Keyword</font></label><br/>
 		<input type="text" id="keyword" name="keyword" size="40" value="" /><br/>
-		<button id = "openLinks" type="button">OpenLinks</button><br/>
+		<button class="button button0" id = "openLinks" type="button">Open Links</button><br/>
 	</div>
 </body>
 </html>

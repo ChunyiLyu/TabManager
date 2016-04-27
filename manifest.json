@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Conference Project",
   "description": "Chunyi Lyu",
-  "version": "0.1",
+  "version": "0.3",
   "background": {
     "persistent": true,
     "scripts": ["background.js"]
@@ -17,7 +17,7 @@
   "browser_action": {
     "default_title": "",
     "default_popup": "popup.html",
-    "default_icon": "icon.png"
+    "default_icon": "paw.png"
   },
   "permissions": [
     "tabs",

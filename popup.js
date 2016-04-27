@@ -22,18 +22,14 @@ function parseUrl(url) {
 
 function scrape() {
 	chrome.extension.getBackgroundPage().console.log("inside scrape");
-	chrome.tabs.executeScript(null, {file:"scrape.js"}, function() {
+
 	chrome.extension.getBackgroundPage().console.log("inside executeScript");
+	chrome.extension.getBackgroundPage().console.log($('#keyword').val());
+	keyword = $('#keyword').val();
+	chrome.storage.sync.set({'searchWord': keyword}, function() {
+		chrome.tabs.executeScript(null, {file:"scrape.js"}, function() {
+		});
 	});
-	// chrome.extension.getBackgroundPage().console.log("inside scrape");
-	// var links = getLinksArray("");
-	// var urlsArray = new Array();
-	// for (link of links) {
-	// 	chrome.extension.getBackgroundPage().console.log(link);
-	// 	urlsArray.push(link.value);
-	// }
-	// chrome.windows.create({'url': urlsArray, 'type': 'normal'}, function(window) {
-  // });
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -86,12 +82,10 @@ window.addEventListener('load', function(evt) {
 		}
 		function snooze() {
       $('#snoozeController').text('Snooze~').css({"background-color":"#DCC7F6", "border-color":"#CEB0F3", "color":"#333"});
-			chrome.extension.getBackgroundPage().console.log("before calling" + window.activeTab);
-			chrome.extension.getBackgroundPage().console.log("after calling" + window.activeTab);
 			var urlInfo = storage(window.activeTab.url);
 			chrome.tabs.remove(window.activeTab.id, function() { });
 			chrome.runtime.sendMessage({signal: "saveUrl", key: urlInfo["time"], value: urlInfo}, function(response){});
-			chrome.alarms.create('myAlarm', {when : Date.now() + 5000 });
+			chrome.alarms.create('myAlarm', { when : Date.now() + 5000 });
 		}
 		var select = document.getElementById("dropdown");
 		for (var i = 0, len = localStorage.length; i < len; ++i ) {
@@ -100,7 +94,7 @@ window.addEventListener('load', function(evt) {
 	    select.add(option, 0);
 		}
 		$('#options').click(function () {
-			chrome.tabs.create({ url : "config.html"});
+			chrome.tabs.create({ url : "config.html" });
 		})
 		$('#saveTab').click(function() {
 			saveTabs();
@@ -123,13 +117,13 @@ window.addEventListener('load', function(evt) {
     $('#snoozeController').click(function() {
 			snooze();
 		});
-    $('#snoozeController').mousedown(function() {
-		$(this).css({'background-color': '#000',
-			     'color': '#bbb'});
-	  });
-	  $('#snoozeController').mouseup(function() {
-			$(this).css({'background-color': '#fff',
-			  'color': '#333'});
-	  });
+    // $('#snoozeController').mousedown(function() {
+		// $(this).css({'background-color': '#000',
+		// 	     'color': '#bbb'});
+	  // });
+	  // $('#snoozeController').mouseup(function() {
+		// 	$(this).css({'background-color': '#fff',
+		// 	  'color': '#333'});
+	  //});
 	});
 });
