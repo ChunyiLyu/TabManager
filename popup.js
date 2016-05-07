@@ -105,25 +105,19 @@ window.addEventListener('load', function(evt) {
 		$('#openLinks').click(function() {
 			scrape();
 		});
-		$('#snoozeController').hover(function(){ $(this).css({'background-color': ' #CEB0F3',
-						       'color': '#4B0082',
-						       'border-color': '#E6E6FA'});
-					  $(this).text('Snooze~'); }, // on mousenter
-			      function(){ $(this).css({'background-color': '#FFC0CB',
-						       'color': '#483D8B',
-						       'border-color': '#E6E6FA'});
-					  $(this).text("Snooze"); // on mouseexit
+		$('#snoozeController').hover(function(){ $(this).css({
+						'background-color': '#FFC0CB',
+						'color': '#B32E2E',
+						'border-color': '#E6E6FA'});
+			$(this).text('Snoozed~'); }, // on mousenter
+      function(){ $(this).css({
+						'background-color': '#FFDDE2',
+						'color': '#CD5C5C',
+						'border-color': '#E6E6FA'});
+		  $(this).text("Snooze"); // on mouseexit
     });
     $('#snoozeController').click(function() {
 			snooze();
 		});
-    // $('#snoozeController').mousedown(function() {
-		// $(this).css({'background-color': '#000',
-		// 	     'color': '#bbb'});
-	  // });
-	  // $('#snoozeController').mouseup(function() {
-		// 	$(this).css({'background-color': '#fff',
-		// 	  'color': '#333'});
-	  //});
 	});
 });
