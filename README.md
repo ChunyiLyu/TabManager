@@ -25,21 +25,21 @@
 
 
 ## Usage
-- 'Tab Manager' is a Chrome extension. It can store the list of opening tab for
-opening them later; it can close the current tab and reopen it automatically after a certain time; it can also search through the current web page with a keyword, and opens links that have the keyword in their urls in a new window. These are the functions that I would like to use daily, and one of my goals is to make my life easier with my own extension.
+- 'Tab Manager' is a Chrome extension. It can store the list of opening tabs to
+open them later; it can close the current tab and reopen it automatically after a certain time; it can also search through the current web page with a keyword, and opens links that have the keyword in their urls in a new window. These are the functions that I would like to use daily, and one of my goals is to make my life easier with my own extension.
 
 
 ## Implementation
-- This project has four different javascript files. 'background.js' is the generally logic of the extension. It receives messages from other javascript files, and it will store, delete, or send from information of the localStorage of the extension. For the 'snooze' functionality, 'background.js' is also responsible to generate the alarm and fire the alarm when it is the time.
+- This project has four different javascript files. 'background.js' is the general logic of the extension. It receives messages from other javascript files, and it will store, delete, or send from information of the localStorage of the extension. For the 'snooze' functionality, 'background.js' is also responsible for generating alarms and to fire the alarm when it is time.
 
-- 'popup.js' is the javascript logic for the popup page of the extension. It handles saving/opening tabs, snoozing tab, and searching links. It communicates with 'background.js' through chrome.runtime's message.
+- 'popup.js' is the javascript logic for the popup page of the extension. It handles saving/opening tabs, the snoozing tab, and searching links. It communicates with 'background.js' through chrome.runtime message API.
 
-- 'options.js' is the logic of the options page. It allows the user to customize different settings, including: delete stored groups of tabs, change the time period for snoozing tabs, and the maximum tabs opened for searching links. It also communicates with 'background.js' for storing or deleting information from storage.
+- 'options.js' is the logic of the options page. It allows the user to customize different settings, including: deleting stored groups of tabs, changing the time period for snoozing tabs, and the maximum tabs opened for searching links. It also communicates with 'background.js' for storing or deleting information from storage.
 
-- 'scrape.js' is only called by 'popup.js', when searching links from a web page. Scrapping logic is seperated from 'popup.js', because the popup page does not have access to the content of current web page. The search only looks for keyword in urls, not the title of the urls.
+- 'scrape.js' is only called by 'popup.js', when searching links from a web page. Scrapping logic is separated from 'popup.js', because the popup page does not have access to the content of current web page. The search only looks for keyword in urls, not the title of the urls.
 
-- Most of the information about extension is stored in localStorage, which is a storage space unique to each extension. localStorage is accessable from 'background.js', 'options.js', and 'popup.js', but 'options.js', and 'popup.js' only read from localStorage, whereas 'background.js' modifies it. I also used chrome.sync.storage api for data passing between 'popup.js' and 'scrape.js'.
+- Most of the information about the extension is stored in localStorage, which is a storage space unique to each extension. localStorage is accessible from 'background.js', 'options.js', and 'popup.js', but 'options.js', and 'popup.js' only read from localStorage, whereas 'background.js' modifies it. I also used chrome.sync.storage api for data passing between 'popup.js' and 'scrape.js'.
 
 ## Known Bugs
-- The dropdown bars in options page do not always display at the right position.
-- I am using the alarm api for the snoozing tab functionality. Once the alarm is fired, 'background.js' fails at clear the alarm. Therefore, unless the extensio is reloaded, alarms just get accumulated. I have a temporary solution that the bug, but it dose not solve this bug fundementally.
+- The dropdown bars in the options page do not always display at the right position.
+- I am using the alarm API for the snoozing tab functionality. Once the alarm is fired, 'background.js' fails at clear the alarm. Therefore, unless the extension is reloaded, alarms just get accumulated. I have a temporary solution for the bug, but it does not solve this bug fundamentally.
