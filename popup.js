@@ -1,49 +1,35 @@
-window.usedLinks = new Set();
+/*
+* Popup page javascript
+* @ Chunyi Lyu
+*/
 
+/* return an object with "url" field */
 function storage(url) {
-	var d = new Date();
-	var date = d.getDate();
-	var hours = d.getHours();
-	var minutes = d.getMinutes();
-	var time = hours+":"+minutes;
 	var storage_var = {
 		"url": url,
-		"date": date,
-		"time": time,
 	};
 	return storage_var;
 }
-
-function parseUrl(url) {
-    var urlParts = url.replace('http://','').replace('https://','').split(/[/?#]/);
-    var domain = urlParts[0];
-    return domain;
-}
-
+/* execute scrape.js */
 function scrape() {
-	chrome.extension.getBackgroundPage().console.log("inside scrape");
-
-	chrome.extension.getBackgroundPage().console.log("inside executeScript");
-	chrome.extension.getBackgroundPage().console.log($('#keyword').val());
 	keyword = $('#keyword').val();
 	chrome.storage.sync.set({'searchWord': keyword}, function() {
 		chrome.tabs.executeScript(null, {file:"scrape.js"}, function() {
 		});
 	});
 }
-
+/* receive links from scrape.js; open all urls in a different window */
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.signal == "Links") {
-			chrome.extension.getBackgroundPage().console.log(request.linkArray);
       var urlsArray = Array();
       for (var index in request.linkArray) {
         urlsArray.push(request.linkArray[index]);
-				chrome.extension.getBackgroundPage().console.log(request.linkArray[index]);
       }
       chrome.windows.create({'url': urlsArray, 'type': 'normal'}, function(window) { });
     }
 });
 
+/* open a list of urls in a diferent window */
 function openTabs(tabs) {
 	var selected = document.getElementById("dropdown").value;
 	console.log(selected);
@@ -53,15 +39,13 @@ function openTabs(tabs) {
 	for (eachUrl of splitUrls) {
 		urlsArray.push(eachUrl);
 	}
-	chrome.extension.getBackgroundPage().console.log(urlsArray.length);
-	chrome.windows.create({'url': urlsArray, 'type': 'normal'}, function(window) {
-  });
+	chrome.windows.create({'url': urlsArray, 'type': 'normal'}, function(window) {});
 }
 
+/* save the url of current tab to window.activeTab */
 function getCurrentTab() {
     chrome.tabs.query({active: true},function (tabs) {
 			window.activeTab = tabs[0];
-			chrome.extension.getBackgroundPage().console.log(window.activeTab);
     });
 }
 
@@ -73,10 +57,8 @@ window.addEventListener('load', function(evt) {
 			var storage = {};
 			var urls = "";
 			for (tab of tabs) {
-				chrome.extension.getBackgroundPage().console.log(tab.url);
 				urls = urls.concat(" ", tab.url);
 			}
-			chrome.extension.getBackgroundPage().console.log(urls);
 			var name = document.getElementById("name").value||"last";
 			chrome.runtime.sendMessage({signal: "saveTabs", urls: urls, key: name}, function(response){});
 		}
@@ -85,16 +67,17 @@ window.addEventListener('load', function(evt) {
 			var urlInfo = storage(window.activeTab.url);
 			chrome.tabs.remove(window.activeTab.id, function() { });
 			chrome.runtime.sendMessage({signal: "saveUrl", key: urlInfo["time"], value: urlInfo}, function(response){});
-			chrome.alarms.create('myAlarm', { when : Date.now() + 5000 });
 		}
-		var select = document.getElementById("dropdown");
-		for (var i = 0, len = localStorage.length; i < len; ++i ) {
-	    var option = document.createElement('option');
-	    option.text = option.value = localStorage.key(i);
-	    select.add(option, 0);
-		}
+
+    /* populate dropdown bar */
+		for (var i = 0; i < localStorage.length; i++) {
+	    if (localStorage.key(i) != "time" && localStorage.key(i) !== "numLinks") {
+	      $('#dropdown').append($('<option name="'+localStorage.key(i)+'">'+localStorage.key(i)+'</option>'));
+	    }
+	  }
+		/* navigate back to options page*/
 		$('#options').click(function () {
-			chrome.tabs.create({ url : "config.html" });
+			chrome.runtime.openOptionsPage();
 		})
 		$('#saveTab').click(function() {
 			saveTabs();
@@ -105,6 +88,7 @@ window.addEventListener('load', function(evt) {
 		$('#openLinks').click(function() {
 			scrape();
 		});
+		/* hover effect */
 		$('#snoozeController').hover(function(){ $(this).css({
 						'background-color': '#FFC0CB',
 						'color': '#B32E2E',

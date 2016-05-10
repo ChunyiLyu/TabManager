@@ -1,54 +1,56 @@
-function getTime() {
-	var d = new Date();
-	var date = d.getDate();
-	var hours = d.getHours();
-	var minutes = d.getMinutes();
-	var time = hours+":"+minutes;
-	var curretnTime = {
-		"date": date,
-		"time": time,
-	};
-	return currentTime;
+/*
+* Background page; handles localStorage: store, delate, and send from localStorage to Options/Popup pages;
+* @Chunyi Lyu
+*/
+
+/* delete a group of tab*/
+function deleteTab(name) {
+    if (localStorage.getItem(name)) {
+        localStorage.removeItem(name);
+        console.log("Deleted from localStorage");
+    }
 }
-
-function checkSnooze () {
-  var time = getTime();
-  console.log(time["time"]);
+/* update snooze time */
+function snoozeUpdate(time) {
+    localStorage["time"] = time;
 }
-
-function saveStatus(status) {
-  var key = status["domain"];
-  localStorage[key] = JSON.stringify(status);
+/* update maximum number of links */
+function linksUpdate(num) {
+    localStorage["numLinks"] = num;
 }
-
-
+/*message listener */
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.signal == "saveTabs") {
-      chrome.extension.getBackgroundPage().console.log('received saveTabs signal');
       localStorage[request.key] = request.urls;
-      console.log(localStorage[request.key]);
-
     } else if (request.signal == "saveUrl") {
-      console.log("saveUrl");
-      localStorage[request.key] = JSON.stringify(request.value);
+			var minutes = 30;
+			if (localStorage["time"]) {
+				minutes = localStorage["time"] * 60;
+			}
+			chrome.alarms.create(request.value["url"], { delayInMinutes: minutes });
 			chrome.alarms.onAlarm.addListener(function (alarm) {
-			    console.log('Fired alarm!');
-			    DoSomething();
-					console.log(alarm.scheduledTime);
-					clearAlarm(alarm);
+					fireAlarm(alarm.name);
+					chrome.alarms.clearAll(function(wasCleared){});
 			});
-			function DoSomething() {
-			  chrome.tabs.create({ url: request.value["url"] });
+      /* temporary solution to a known bug */
+			function fireAlarm(url) {
+				if (url === request.value["url"]) {
+			  	chrome.tabs.create({ url: url });
+				}
 			}
-			function clearAlarm(alarm) {
-				console.log(alarm.name);
-				chrome.alarms.clear(alarm.name, function(){});
+    } else if (request.signal == "deleteTab") {
+			deleteTab(request.name);
+		} else if (request.signal == "snoozeUpdate") {
+			snoozeUpdate(request.time);
+		} else if (request.signal == "linksUpdate") {
+			linksUpdate(request.num);
+		} else if (request.signal == "getLinksNum") {
+			var num = 11;
+      if (localStorage.getItem("numLinks")) {
+				num = localStorage["numLinks"];
 			}
-
-    } else if (request.signal == "openTab") {
-      console.log("openTab");
-      chrome.tabs.create({ url: request.url });
+			sendResponse({data: num});
     }
   }
 );

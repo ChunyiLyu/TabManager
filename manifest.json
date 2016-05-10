@@ -1,20 +1,16 @@
 {
   "manifest_version": 2,
-  "name": "Conference Project",
+  "name": "Tab Manager",
   "description": "Chunyi Lyu",
-  "version": "0.3",
-  "options_page": "options.html",
+  "version": "1.0",
+  "options_ui": {
+    "page": "options.html"
+  },
   "background": {
     "persistent": true,
     "scripts": ["background.js"]
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "run_at": "document_start",
-      "js": ["contentscript.js"]
-    }
-  ],
+
   "browser_action": {
     "default_title": "",
     "default_popup": "popup.html",

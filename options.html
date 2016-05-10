@@ -1,14 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script type="text/javascript" src="jquery-2.1.4.min.js"></script>
   <style>
+  body {
+    overflow-x: hidden;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;;
+    font-size: 12px;
+    margin: 10px;
+    background-image: url("small.png");
+  }
+  div.block {
+  	padding: 5px;
+  	background-color: #FFDDE2; /*lighter pink*/
+    color: #CD5C5C;
+  	border-radius: 10px;
+    margin: 7px 2px 7px 2px;
+    border: 1px solid #E6E6FA;
+
+  }
+  .button {
+    background-color: white;
+    border: 1px solid #E6E6FA;
+    color: white;
+    padding: 2px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    border-radius: 12px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .button0 {
+      background-color: white;
+      color: black;
+  }
+
+  .button0:hover {
+      background-color: #F08080; /*light coral*/
+      color: white;
+  }
+
+  .dropdown {
+    color: #483D8B;
+    font-size: 12px;
+    width: 200px;
+  }
 
   </style>
 </head>
 <body>
-
-
-<script src = "options.js"></script>
+<h3><font color="#B32E2E" size="5" >App Config...</font>
+<hr><div style="width:100%"></hr>
+<div class="block">
+  <label for="title"><font color="#CD5C5C" size = 3px>Delete Saved Tabs</font></label><br/>
+  <select class= "dropdown" id="tabsDropdown" name="tabsDropdown"></select><br/>
+  <button class="button button0" id = "tabDelete" type="button">Delete</button><br/>
+</div>
+<div class="block">
+  <label for="title"><font color="#CD5C5C" size = 3px>Snooze Time</font></label><br/>
+  <select class= "dropdown" id="snoozeDropdown" name="snoozeDropdown"></select><br/>
+  <button class="button button0" id = "snoozeSave" type="button">Save</button><br/>
+</div>
+<div class="block">
+  <label for="title"><font color="#CD5C5C" size = 3px>Default Number of Links Open</font></label><br/>
+  <input type="text" id="numLinks" name="numLinks" size="30" value="" /><br/>
+  <button class="button button0" id = "linksSave" type="button">Save</button><br/>
+</div>
 </body>
+<script type="text/javascript" src = "options.js"></script>
+<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
 </html>
