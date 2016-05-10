@@ -1,5 +1,6 @@
 /*
-* Background page; handles localStorage: store, delate, and send from localStorage to Options/Popup pages;
+* Background page;
+* handles localStorage: store, delate, and send from localStorage to Options/Popup pages;
 * @Chunyi Lyu
 */
 

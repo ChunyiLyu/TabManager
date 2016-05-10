@@ -2,7 +2,6 @@
 * Popup page javascript
 * @ Chunyi Lyu
 */
-
 /* return an object with "url" field */
 function storage(url) {
 	var storage_var = {
@@ -10,6 +9,7 @@ function storage(url) {
 	};
 	return storage_var;
 }
+
 /* execute scrape.js */
 function scrape() {
 	keyword = $('#keyword').val();
@@ -18,6 +18,7 @@ function scrape() {
 		});
 	});
 }
+
 /* receive links from scrape.js; open all urls in a different window */
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.signal == "Links") {
@@ -63,12 +64,14 @@ window.addEventListener('load', function(evt) {
 			chrome.runtime.sendMessage({signal: "saveTabs", urls: urls, key: name}, function(response){});
 		}
 		function snooze() {
-      $('#snoozeController').text('Snooze~').css({"background-color":"#DCC7F6", "border-color":"#CEB0F3", "color":"#333"});
+      $('#snoozeController').text('Snooze~').css({
+				"background-color":"#DCC7F6",
+				"border-color":"#CEB0F3",
+				"color":"#333"});
 			var urlInfo = storage(window.activeTab.url);
 			chrome.tabs.remove(window.activeTab.id, function() { });
 			chrome.runtime.sendMessage({signal: "saveUrl", key: urlInfo["time"], value: urlInfo}, function(response){});
 		}
-
     /* populate dropdown bar */
 		for (var i = 0; i < localStorage.length; i++) {
 	    if (localStorage.key(i) != "time" && localStorage.key(i) !== "numLinks") {

@@ -1,9 +1,11 @@
 window.searchWord = "";
+
 function getLinksArray() {
   console.log("inside getLinksArray");
   chrome.runtime.sendMessage({signal: "getLinksNum"}, function(response) {
     var nums = response.data;
     console.log(response.data);
+
     chrome.storage.sync.get('searchWord', function(obj) {
       window.searchWord = obj["searchWord"];
       console.log(window.searchWord);
@@ -20,10 +22,10 @@ function getLinksArray() {
           }
           i++;
       }
+
       chrome.runtime.sendMessage({signal: "Links", linkArray: linksArray}, function() {
             console.log("sent signal Links");
       });
-
     });
   });
 }

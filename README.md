@@ -1,4 +1,5 @@
 # Tab Manager @ Chunyi Lyu
+Open sourced on Github: https://github.com/ChunyiLyu/TabManager
 
 ## Installation
   1. Unzip
@@ -42,4 +43,8 @@ open them later; it can close the current tab and reopen it automatically after 
 
 ## Known Bugs
 - The dropdown bars in the options page do not always display at the right position.
+- When adding and deleting a group of tabs, the dropdown does not refresh automatically. Changes will be reflected after reopen the popup or options pages.
 - I am using the alarm API for the snoozing tab functionality. Once the alarm is fired, 'background.js' fails at clear the alarm. Therefore, unless the extension is reloaded, alarms just get accumulated. I have a temporary solution for the bug, but it does not solve this bug fundamentally.
+
+## Reflection
+- My main goals are to learn web development, and to develop a useful tool for myself. I am really glad that I finally had a chance to do more web development, and this was my first time learning html/css as well. I am happy with my final project. This is the extension I want and I will keep using it. I have a new perspective about html/css now, and I am looking forward to learning more front-end development in the future.

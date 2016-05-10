@@ -9,6 +9,7 @@ function tabDelete() {
   var name = $('#tabsDropdown :selected').text();
   chrome.runtime.sendMessage({signal: "deleteTab", name: name});
 }
+
 /* send msg to background page to update standard snooze time */
 function snoozeUpdate() {
   var time = times[$("#snoozeDropdown")[0].selectedIndex];
