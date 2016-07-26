@@ -41,7 +41,7 @@ open them later; it can close the current tab and reopen it automatically after 
 
 - Most of the information about the extension is stored in localStorage, which is a storage space unique to each extension. localStorage is accessible from 'background.js', 'options.js', and 'popup.js', but 'options.js', and 'popup.js' only read from localStorage, whereas 'background.js' modifies it. I also used chrome.sync.storage api for data passing between 'popup.js' and 'scrape.js'.
 
-## Known Bugs
+## Todos
 - The dropdown bars in the options page do not always display at the right position.
 - When adding and deleting a group of tabs, the dropdown does not refresh automatically. Changes will be reflected after reopen the popup or options pages.
 - I am using the alarm API for the snoozing tab functionality. Once the alarm is fired, 'background.js' fails at clear the alarm. Therefore, unless the extension is reloaded, alarms just get accumulated. I have a temporary solution for the bug, but it does not solve this bug fundamentally.
